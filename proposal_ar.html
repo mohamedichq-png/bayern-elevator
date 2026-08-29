@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خطة التطوير الشاملة لمنظومة تهيئة المصاعد 3D - Bayern Systems</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        @page {
+            size: A4 portrait;
+            margin: 12mm 15mm 15mm 15mm;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+        body {
+            font-family: 'Tajawal', 'Cairo', sans-serif;
+            background: #ffffff;
+            color: #1e293b;
+            direction: rtl;
+            text-align: right;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+        .page {
+            width: 100%;
+            page-break-after: always;
+            position: relative;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 270mm;
+        }
+        .page:last-child {
+            page-break-after: avoid;
+        }
+
+        /* Top Header Meta */
+        .top-meta-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 9.5px;
+            color: #64748b;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+        }
+
+        /* Main Header Banner */
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #881337;
+            padding-bottom: 12px;
+            margin-bottom: 14px;
+        }
+        .doc-badge-container {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .doc-tag {
+            display: inline-block;
+            background: #ffe4e6;
+            color: #9f1239;
+            font-weight: 800;
+            font-size: 10.5px;
+            padding: 4px 12px;
+            border-radius: 6px;
+            border: 1px solid #fecdd3;
+            width: fit-content;
+        }
+        .doc-date {
+            font-size: 9.5px;
+            color: #64748b;
+            font-weight: 500;
+        }
+        .company-brand {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        .logo-box {
+            background: #881337;
+            color: #ffffff;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 900;
+            font-size: 16px;
+            letter-spacing: 1px;
+            padding: 6px 18px;
+            border-radius: 6px;
+            margin-bottom: 4px;
+        }
+        .company-sub {
+            font-size: 9.5px;
+            color: #475569;
+            font-weight: 600;
+        }
+
+        /* Hero Title */
+        .hero-title-section {
+            text-align: center;
+            margin-bottom: 14px;
+        }
+        .hero-title {
+            font-size: 20px;
+            font-weight: 900;
+            color: #881337;
+            margin-bottom: 4px;
+            font-family: 'Cairo', sans-serif;
+        }
+        .hero-subtitle {
+            font-size: 11.5px;
+            color: #475569;
+            font-weight: 600;
+        }
+
+        /* KPI Cards 4 Grid */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .kpi-card {
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 10px 8px;
+            text-align: center;
+            background: #ffffff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+        .kpi-label {
+            font-size: 10px;
+            color: #475569;
+            font-weight: 600;
+            margin-bottom: 4px;
+            min-height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .kpi-value {
+            font-size: 18px;
+            font-weight: 900;
+            color: #0284c7;
+            font-family: 'Cairo', sans-serif;
+        }
+        .kpi-value.green { color: #059669; }
+        .kpi-value.burgundy { color: #881337; }
+        .kpi-value.amber { color: #d97706; }
+
+        /* Section Headings */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            margin-top: 6px;
+        }
+        .section-num {
+            background: #881337;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+        .section-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: #881337;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        /* Table Comparison */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 16px;
+            font-size: 10px;
+        }
+        .comparison-table th {
+            background: #f8fafc;
+            color: #334155;
+            padding: 8px 10px;
+            font-weight: 800;
+            border: 1px solid #cbd5e1;
+            text-align: center;
+            font-size: 10.5px;
+        }
+        .comparison-table td {
+            padding: 8px 10px;
+            border: 1px solid #cbd5e1;
+            vertical-align: middle;
+        }
+        .comparison-table tr:nth-child(even) {
+            background: #fdfdfd;
+        }
+        .table-category {
+            font-weight: 800;
+            color: #0f172a;
+            text-align: center;
+            background: #f8fafc;
+            width: 20%;
+        }
+        .col-legacy {
+            width: 38%;
+            color: #64748b;
+            text-align: right;
+        }
+        .col-nextgen {
+            width: 42%;
+            color: #0f172a;
+            font-weight: 600;
+            background: #f0fdf4;
+            border-right: 2px solid #22c55e !important;
+            text-align: right;
+        }
+
+        /* Value & ROI 4 Grid */
+        .roi-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .roi-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 10px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .roi-card-header {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 800;
+            color: #881337;
+        }
+        .roi-card-desc {
+            font-size: 9.5px;
+            color: #475569;
+            line-height: 1.45;
+        }
+
+        /* Roadmap 3 Columns (Page 2) */
+        .roadmap-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+        .roadmap-card {
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 14px 12px;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+        }
+        .roadmap-phase-tag {
+            text-align: center;
+            font-size: 11px;
+            font-weight: 800;
+            color: #881337;
+            padding-bottom: 6px;
+            border-bottom: 1px dashed #cbd5e1;
+            margin-bottom: 8px;
+        }
+        .roadmap-phase-title {
+            font-size: 13px;
+            font-weight: 900;
+            color: #0f172a;
+            text-align: center;
+            margin-bottom: 12px;
+            font-family: 'Cairo', sans-serif;
+        }
+        .roadmap-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .roadmap-list li {
+            position: relative;
+            padding-right: 12px;
+            font-size: 10px;
+            color: #334155;
+            line-height: 1.4;
+        }
+        .roadmap-list li::before {
+            content: "•";
+            position: absolute;
+            right: 0;
+            color: #881337;
+            font-weight: bold;
+            font-size: 14px;
+            line-height: 1;
+        }
+
+        /* Page Footer */
+        .page-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 8px;
+            font-size: 9px;
+            color: #64748b;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ================= PAGE 1 ================= -->
+    <div class="page">
+        <div>
+            <!-- Top Metadata -->
+            <div class="top-meta-bar">
+                <span>وثيقة استراتيجية سرية | وثائق الاعتماد الفني</span>
+                <span>منظومة بايرن للمصاعد — خطة التطوير الشاملة والتهيئة 3D</span>
+            </div>
+
+            <!-- Header Branding -->
+            <div class="main-header">
+                <div class="doc-badge-container">
+                    <div class="doc-tag">وثيقة استراتيجية معتمدة</div>
+                    <div class="doc-date">التاريخ: 2026 — الإصدار v3.0 Next-Gen</div>
+                </div>
+                <div class="company-brand">
+                    <div class="logo-box">BAYERN SYSTEMS</div>
+                    <div class="company-sub">شركة بايرن للأنظمة الهندسية للمصاعد ذ.م.م</div>
+                </div>
+            </div>
+
+            <!-- Main Hero Title -->
+            <div class="hero-title-section">
+                <h1 class="hero-title">خطة التطوير الشاملة والتحول الرقمي لمنظومة تهيئة المصاعد 3D</h1>
+                <p class="hero-subtitle">رؤية تقنية وهندسية تفاعلية لتسريع وتيرة المبيعات وأتمتة عروض الأسعار والمواصفات المعمارية</p>
+            </div>
+
+            <!-- 4 KPI Metrics -->
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-label">تقليص زمن إغلاق الصفقات</div>
+                    <div class="kpi-value burgundy">70%-</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">جاهزية المعاينة ثلاثية الأبعاد</div>
+                    <div class="kpi-value green">99.8%</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">محاور التخصيص والموديولات</div>
+                    <div class="kpi-value">5+ موديولات</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">دعم اللغات والتصدير</div>
+                    <div class="kpi-value amber">عربي / English</div>
+                </div>
+            </div>
+
+            <!-- Section 1: Comparison Table -->
+            <div class="section-header">
+                <span class="section-num">1</span>
+                <h2 class="section-title">مقارنة النقلة النوعية للمنظومة (التطوير المنجز بالفعل)</h2>
+            </div>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th class="table-category">المجال</th>
+                        <th style="width: 38%;">الوضع السابق (Legacy / الطرق التقليدية)</th>
+                        <th style="width: 42%;">الوضع الحالي بعد التطوير (Next-Gen 3D)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="table-category">معاينة الكابينة والتصميم</td>
+                        <td class="col-legacy">كتالوجات ورقية ثابتة أو الانتظار لأسابيع لتوليد رسومات أوتوكاد وريندر معماري مكلف وبطيء.</td>
+                        <td class="col-nextgen">محرك 3D تفاعلي فوري (WebGL / Three.js) يتيح للعميل استعراض الكابينة بزاوية 360° مع انعكاسات المرايا والإنارة الحقيقية.</td>
+                    </tr>
+                    <tr>
+                        <td class="table-category">تخصيص الخامات والمواد</td>
+                        <td class="col-legacy">عينات مادية مبعثرة وصعوبة تخيل دمج ألوان الرخام والخشب مع الستانلس ستيل.</td>
+                        <td class="col-nextgen">أكثر من 50 تركيبة فورية (ستانلس ذهبي/أسود، رخام كرارا، باركيه، أسقف ألياف ضوئية Starlight) بضغطة زر واحدة.</td>
+                    </tr>
+                    <tr>
+                        <td class="table-category">حساب التكاليف وعروض الأسعار</td>
+                        <td class="col-legacy">حساب يدوي عبر ملفات Excel يستغرق أياماً ويتعرض لأخطاء التسعير البشرية.</td>
+                        <td class="col-nextgen">محرك تسعير فوري ديناميكي (Dynamic BOM Engine) يحسب التكلفة لحظياً فور تغيير أي خامة في الكابينة.</td>
+                    </tr>
+                    <tr>
+                        <td class="table-category">إصدار التقارير والمواصفات</td>
+                        <td class="col-legacy">صياغة عروض الأسعار والمواصفات يدوياً مما يسبب تأخر الرد على استفسارات المطورين.</td>
+                        <td class="col-nextgen">توليد تقرير مواصفات فنية معتمد بصيغة PDF فورياً يحتوي على حصر الكميات وكود مرجعي تسلسلي (BS-RFQ).</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Section 2: Business ROI -->
+            <div class="section-header">
+                <span class="section-num">2</span>
+                <h2 class="section-title">العائد الاستثماري والقيمة المضافة لشركة بايرن (Business ROI)</h2>
+            </div>
+
+            <div class="roi-grid">
+                <div class="roi-card">
+                    <div class="roi-card-header">
+                        <span>⚡</span>
+                        <span>تسريع دورة المبيعات وزيادة معدل التحويل</span>
+                    </div>
+                    <div class="roi-card-desc">
+                        تمكين فريق المبيعات من بناء الكابينة مع العميل مباشرة في أول اجتماع، مما يمنحه ثقة بصرية مطلقة ويقضي على فترات التردد في التعاقد.
+                    </div>
+                </div>
+
+                <div class="roi-card">
+                    <div class="roi-card-header">
+                        <span>💰</span>
+                        <span>أتمتة طلبات عروض الأسعار (Instant RFQ)</span>
+                    </div>
+                    <div class="roi-card-desc">
+                        ربط واجهة التصميم بنظام مراسلة رقمي يرسل تفاصيل التكوين والمقاسات المطلوبة مباشرة لمهندسي التسعير دون وسطاء.
+                    </div>
+                </div>
+
+                <div class="roi-card">
+                    <div class="roi-card-header">
+                        <span>🛡️</span>
+                        <span>القضاء على الأخطاء الإنشائية والتوريدية</span>
+                    </div>
+                    <div class="roi-card-desc">
+                        تطابق تام بين ما يختاره العميل في العرض ثلاثي الأبعاد وما يتم إدراجه في جداول حصر المواد (BOM) المصدرة للمصنع.
+                    </div>
+                </div>
+
+                <div class="roi-card">
+                    <div class="roi-card-header">
+                        <span>🏢</span>
+                        <span>إبهار كبار المطورين والمكاتب الاستشارية</span>
+                    </div>
+                    <div class="roi-card-desc">
+                        مظهر تقني حديث ومتميز يضع شركة بايرن في صدارة شركات المصاعد الإقليمية ويمنحها أفضلية تنافسية كبرى في المشاريع الكبرى.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="page-footer">
+            <span>منظومة Bayern Systems Elevator 3D Configurator v3.0</span>
+            <span>صفحة 1 من 2</span>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 2 ================= -->
+    <div class="page">
+        <div>
+            <!-- Top Metadata -->
+            <div class="top-meta-bar">
+                <span>وثيقة استراتيجية سرية | وثائق الاعتماد الفني</span>
+                <span>منظومة بايرن للمصاعد — خارطة طريق الترقيات الذكية</span>
+            </div>
+
+            <!-- Header Branding -->
+            <div class="main-header">
+                <div class="doc-badge-container">
+                    <div class="doc-tag">الترقيات وخارطة الطريق</div>
+                    <div class="doc-date">المرحلة القادمة: 2026 - 2027</div>
+                </div>
+                <div class="company-brand">
+                    <div class="logo-box">BAYERN SYSTEMS</div>
+                    <div class="company-sub">شركة بايرن للأنظمة الهندسية للمصاعد ذ.م.م</div>
+                </div>
+            </div>
+
+            <!-- Section 3: Strategic Roadmap -->
+            <div class="section-header">
+                <span class="section-num">3</span>
+                <h2 class="section-title">خارطة طريق الترقيات الذكية القادمة (Strategic Roadmap)</h2>
+            </div>
+
+            <div class="roadmap-grid">
+                <!-- Phase 1 -->
+                <div class="roadmap-card">
+                    <div class="roadmap-phase-tag">المرحلة الأولى • الميدان والهندسة</div>
+                    <div class="roadmap-phase-title">الأبعاد الدقيقة والمقياس البشري</div>
+                    <ul class="roadmap-list">
+                        <li><strong>محرر الأبعاد البارامتري (Parametric Sizing):</strong> إدخال أبعاد بئر المصعد والكابينة الدقيقة بالملم (عرض، عمق، ارتفاع).</li>
+                        <li><strong>تحديد الحمولة والسعة:</strong> حساب تلقائي لعدد الركاب والوزن بالكيلوغرام (450kg إلى 1600kg).</li>
+                        <li><strong>المقياس البشري (Human Scale):</strong> إظهار مجسم ثلاثي الأبعاد لتقدير المساحة والرحابة الداخلية.</li>
+                        <li><strong>دعم مجسمات Revit و 3ds Max:</strong> استيراد ملفات GLB المعمارية مباشرة.</li>
+                    </ul>
+                </div>
+
+                <!-- Phase 2 -->
+                <div class="roadmap-card">
+                    <div class="roadmap-phase-tag">المرحلة الثانية • التفاعل والذكاء</div>
+                    <div class="roadmap-phase-title">الواقع المعزز والمشاركة الفورية</div>
+                    <ul class="roadmap-list">
+                        <li><strong>روابط المشاركة السريعة (Shareable URL):</strong> توليد رابط فوري لكل تكوين لمشاركته عبر الواتساب مع العميل.</li>
+                        <li><strong>ريندر فائق الدقة (4K Render Export):</strong> تصدير صور عالية الدقة للكابينة بضغطة زر واحدة.</li>
+                        <li><strong>معاينة الواقع المعزز (AR / WebXR):</strong> فتح الكاميرا ورؤية الكابينة في الموقع الإنشائي الفعلي للمشروع.</li>
+                        <li><strong>تنبيهات فورية لطلبات RFQ:</strong> إشعار المبيعات بالطلبات الجديدة عبر البريد الإلكتروني وواتساب.</li>
+                    </ul>
+                </div>
+
+                <!-- Phase 3 -->
+                <div class="roadmap-card">
+                    <div class="roadmap-phase-tag">المرحلة الثالثة • التوسع المؤسسي</div>
+                    <div class="roadmap-phase-title">التعريب الكامل والربط مع الـ ERP</div>
+                    <ul class="roadmap-list">
+                        <li><strong>التعريب الكامل (i18n & RTL):</strong> واجهة عربية متقنة ومطابقة للمصطلحات الهندسية الخليجية.</li>
+                        <li><strong>دعم العملات الإقليمية:</strong> التبديل بين الريال السعودي، الدرهم الإماراتي، الدينار الكويتي، والدولار.</li>
+                        <li><strong>الربط مع أنظمة الـ ERP (SAP / Oracle):</strong> ترحيل جدول الـ BOM لأوامر التصنيع فور التوقيع.</li>
+                        <li><strong>بوابة خاصة للمكاتب الاستشارية:</strong> صلاحيات خاصة للمهندسين لحفظ مشاريع الأبراج السكنية والتجارية.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Additional Highlight Box -->
+            <div style="background: #fff1f2; border: 1px solid #fecdd3; border-radius: 8px; padding: 12px 14px; margin-top: 10px;">
+                <div style="font-weight: 800; font-size: 11px; color: #881337; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
+                    <span>📌</span>
+                    <span>الخلاصة والتوصية الفنية:</span>
+                </div>
+                <div style="font-size: 9.5px; color: #4c0519; line-height: 1.5;">
+                    تمثل هذه المنصة نقلة نوعية تنقل شركة <strong>Bayern Systems</strong> من الأساليب التقليدية إلى مصاف الشركات العالمية (مثل Schindler و Otis و KONE) في توظيف التكنولوجيا ثلاثية الأبعاد لتسريع المبيعات وتقديم تجربة عميل استثنائية.
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="page-footer">
+            <span>جميع الحقوق محفوظة © 2026 — شركة بايرن للأنظمة الهندسية للمصاعد ذ.م.م</span>
+            <span>صفحة 2 من 2</span>
+        </div>
+    </div>
+
+</body>
+</html>

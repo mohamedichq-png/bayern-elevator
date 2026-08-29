@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عرض تقديمي - نظام تهيئة المصاعد ثلاثي الأبعاد</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        @page {
+            size: A4 landscape;
+            margin: 0;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+        body {
+            font-family: 'Tajawal', 'Cairo', sans-serif;
+            background: #0b0f19;
+            color: #f1f5f9;
+            direction: rtl;
+            text-align: right;
+        }
+        .slide {
+            width: 297mm;
+            height: 210mm;
+            page-break-after: always;
+            position: relative;
+            overflow: hidden;
+            background: radial-gradient(circle at 80% 20%, #1e293b 0%, #0f172a 50%, #020617 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 36px 48px;
+        }
+        .slide::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #38bdf8, #818cf8, #c084fc, #f59e0b);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 14px;
+            margin-bottom: 20px;
+        }
+        .logo-badge {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, #0284c7, #38bdf8);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 18px;
+            color: white;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+        }
+        .logo-text {
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+        }
+        .logo-sub {
+            font-size: 11px;
+            color: #94a3b8;
+        }
+        .slide-tag {
+            background: rgba(56, 189, 248, 0.12);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            color: #38bdf8;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .title-section h1 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 6px;
+            background: linear-gradient(90deg, #ffffff, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .title-section p {
+            color: #94a3b8;
+            font-size: 14px;
+            margin-bottom: 18px;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            flex-grow: 1;
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+            flex-grow: 1;
+        }
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            flex-grow: 1;
+        }
+        .card {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 18px 20px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+        .card-highlight {
+            border-color: rgba(56, 189, 248, 0.4);
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
+        }
+        .card-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+        .icon-blue { background: rgba(56, 189, 248, 0.2); color: #38bdf8; }
+        .icon-amber { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+        .icon-emerald { background: rgba(16, 185, 129, 0.2); color: #10b981; }
+        .icon-purple { background: rgba(168, 85, 247, 0.2); color: #c084fc; }
+        .icon-rose { background: rgba(244, 63, 94, 0.2); color: #fb7185; }
+
+        .card h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #f8fafc;
+            margin-bottom: 8px;
+        }
+        .card p, .card ul {
+            font-size: 12.5px;
+            line-height: 1.6;
+            color: #cbd5e1;
+        }
+        .card ul {
+            list-style: none;
+            padding-right: 0;
+        }
+        .card ul li {
+            position: relative;
+            padding-right: 16px;
+            margin-bottom: 6px;
+        }
+        .card ul li::before {
+            content: "•";
+            position: absolute;
+            right: 0;
+            color: #38bdf8;
+            font-weight: bold;
+            font-size: 16px;
+            line-height: 1;
+        }
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 12px;
+            margin-top: 16px;
+            font-size: 11px;
+            color: #64748b;
+        }
+        
+        /* Cover Slide */
+        .cover-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            text-align: center;
+            position: relative;
+        }
+        .cover-badge {
+            background: linear-gradient(90deg, rgba(56, 189, 248, 0.2), rgba(168, 85, 247, 0.2));
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            color: #38bdf8;
+            padding: 8px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            letter-spacing: 1px;
+        }
+        .cover-title {
+            font-size: 46px;
+            font-weight: 900;
+            line-height: 1.25;
+            margin-bottom: 18px;
+            background: linear-gradient(135deg, #ffffff 30%, #38bdf8 70%, #818cf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .cover-desc {
+            font-size: 18px;
+            color: #94a3b8;
+            max-width: 750px;
+            line-height: 1.6;
+            margin-bottom: 36px;
+        }
+        .stats-strip {
+            display: flex;
+            gap: 28px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 16px 36px;
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .stat-num {
+            font-size: 24px;
+            font-weight: 900;
+            color: #38bdf8;
+        }
+        .stat-label {
+            font-size: 11px;
+            color: #94a3b8;
+            margin-top: 2px;
+        }
+        .badge-pill {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 10.5px;
+            font-weight: 700;
+            margin-left: 4px;
+            background: rgba(255,255,255,0.1);
+        }
+        .pill-gold { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+        .pill-blue { background: rgba(56, 189, 248, 0.2); color: #38bdf8; }
+        .pill-green { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+    </style>
+</head>
+<body>
+
+    <!-- SLIDE 1: COVER -->
+    <div class="slide">
+        <div class="header">
+            <div class="logo-badge">
+                <div class="logo-icon">B</div>
+                <div>
+                    <div class="logo-text">BAYERN SYSTEMS</div>
+                    <div class="logo-sub">Bespoke Elevator Engineering</div>
+                </div>
+            </div>
+            <div class="slide-tag">دليل النظام والمواصفات 2026</div>
+        </div>
+
+        <div class="cover-container">
+            <div class="cover-badge">نظام المعاينة والتهيئة التفاعلية 3D</div>
+            <h1 class="cover-title">منصة تخصيص وتصميم المصاعد الذكية<br>(Elevator 3D Configurator)</h1>
+            <p class="cover-desc">حل رقمي هندسي متكامل يتيح للعملاء والمهندسين تصميم كبائن المصاعد ومطابقة الخامات والإضاءة في بيئة ثلاثية الأبعاد تفاعلية وحساب عروض الأسعار اللحظية تلقائياً.</p>
+            
+            <div class="stats-strip">
+                <div class="stat-item">
+                    <div class="stat-num">100%</div>
+                    <div class="stat-label">تفاعل ثلاثي الأبعاد فوري</div>
+                </div>
+                <div style="width: 1px; background: rgba(255,255,255,0.1);"></div>
+                <div class="stat-item">
+                    <div class="stat-num">5+</div>
+                    <div class="stat-label">محاور تخصيص هندسية</div>
+                </div>
+                <div style="width: 1px; background: rgba(255,255,255,0.1);"></div>
+                <div class="stat-item">
+                    <div class="stat-num">BOM & RFQ</div>
+                    <div class="stat-label">حساب التكاليف والـ PDF فوري</div>
+                </div>
+                <div style="width: 1px; background: rgba(255,255,255,0.1);"></div>
+                <div class="stat-item">
+                    <div class="stat-num">60 FPS</div>
+                    <div class="stat-label">أداء فائق مع WebGL / Three.js</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <span>العرض التقديمي الشامل للنظام الهندسي</span>
+            <span>الصفحة 1 من 6</span>
+        </div>
+    </div>
+
+    <!-- SLIDE 2: SYSTEM ARCHITECTURE & 3D ENGINE -->
+    <div class="slide">
+        <div class="header">
+            <div class="logo-badge">
+                <div class="logo-icon">B</div>
+                <div class="logo-text">BAYERN SYSTEMS</div>
+            </div>
+            <div class="slide-tag">المحرك ثلاثي الأبعاد والتقنيات</div>
+        </div>
+
+        <div class="title-section">
+            <h1>1. قدرات المحرك ثلاثي الأبعاد (3D Interactive Engine)</h1>
+            <p>بيئة واقعية متقدمة مبنية بأحدث معايير الويب لعرض الكابينة بكافة تفاصيلها وخاماتها في الوقت الفعلي.</p>
+        </div>
+
+        <div class="grid-3">
+            <div class="card card-highlight">
+                <div class="card-icon icon-blue">🎥</div>
+                <h3>زوايا الكاميرا والمشاهد التفاعلية</h3>
+                <ul>
+                    <li><strong>Interior View:</strong> معاينة داخلية شاملة بزاوية رؤية واسعة للكابينة.</li>
+                    <li><strong>Hall / Lobby View:</strong> رؤية الأبواب والمصعد من ردهة المبنى الخارجية.</li>
+                    <li><strong>Ceiling & Floor Focus:</strong> توجيه الكاميرا بضغطة زر لفحص تفاصيل السقف والإنارة أو زخارف الأرضيات.</li>
+                    <li><strong>تحكم سلس (Orbit Controls):</strong> دوران حر، تكبير، وتعديل إمالة الكاميرا.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-icon icon-amber">💡</div>
+                <h3>فيزياء الإضاءة والمرايا (PBR Materials)</h3>
+                <ul>
+                    <li><strong>انعكاسات المرايا الحقيقية:</strong> محاكاة الزجاج والمرايا العاكسة على الجدار الخلفي والجانبي.</li>
+                    <li><strong>نظام الإضاءة المزدوج:</strong> إنارة سقفية مباشرة (Spotlights) + إضاءة محيطية غير مباشرة (Cove LED).</li>
+                    <li><strong>ظلال واقعية (Contact Shadows):</strong> إسقاط الظلال بدقة على الأرضيات لزيادة الإحساس بالعمق.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-icon icon-emerald">🚪</div>
+                <h3>محاكاة الحركة والمؤثرات الصوتية</h3>
+                <ul>
+                    <li><strong>أبواب تفاعلية (Door Animation):</strong> إمكانية فتح وإغلاق أبواب الكابينة بحركة ناعمة.</li>
+                    <li><strong>مؤثرات صوتية حقيقية:</strong> نغمة وصول المصعد (Arrival Chime)، صوت المحرك وفتح الأبواب الميكانيكية.</li>
+                    <li><strong>وضع الجدران الشفافة (Ghost Mode):</strong> تشتيت الجدران لمعاينة الهيكل الداخلي بوضوح.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">
+            <span>التقنيات: Next.js 16 • React Three Fiber • Three.js • Drei • Web Audio API</span>
+            <span>الصفحة 2 من 6</span>
+        </div>
+    </div>
+
+    <!-- SLIDE 3: CABIN CUSTOMIZATION STEPS -->
+    <div class="slide">
+        <div class="header">
+            <div class="logo-badge">
+                <div class="logo-icon">B</div>
+                <div class="logo-text">BAYERN SYSTEMS</div>
+            </div>
+            <div class="slide-tag">مراحل التخصيص والخيارات</div>
+        </div>
+
+        <div class="title-section">
+            <h1>2. خطوات التخصيص واختيار الخامات (Customization Modules)</h1>
+            <p>خيارات لا نهائية تمنح العميل تحكماً كاملاً في كل تفصيلة معمارية وميكانيكية داخل الكابينة.</p>
+        </div>
+
+        <div class="grid-4">
+            <div class="card">
+                <div class="card-icon icon-purple">⚡</div>
+                <h3>1. القوالب الجاهزة (Presets)</h3>
+                <p>نماذج تصميمية منسقة بلمسة زر:</p>
+                <ul>
+                    <li><span class="badge-pill pill-gold">Bavarian Executive</span> خشب جوز فاخر مع ذهب شامبانيا.</li>
+                    <li><span class="badge-pill pill-blue">Neo Luxury Glass</span> زجاج مدخن مع إضاءة نجوم.</li>
+                    <li><span class="badge-pill pill-green">Alpine Timber</span> خشب الدردار مع ستانلس مصقول.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-icon icon-rose">🧱</div>
+                <h3>2. الجدران والمرايا (Walls)</h3>
+                <p>تنسيق مستقل للجدار الخلفي والجانبي:</p>
+                <ul>
+                    <li>ستانلس ستيل (Hairline, Mirror Gold, Black).</li>
+                    <li>أخشاب طبيعية مصفحة مقاومة للحريق.</li>
+                    <li>مرايا كاملة الارتفاع أو نصف جدار.</li>
+                    <li>إطارات معدنية بارزة (Trims).</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-icon icon-amber">🏛️</div>
+                <h3>3. الأرضيات والأسقف</h3>
+                <p>تشطيبات معمارية راقية:</p>
+                <ul>
+                    <li><strong>الأرضيات:</strong> رخام كرارا، جرانيت أسود، باركيه خشب ألماني، فينيل عملي.</li>
+                    <li><strong>الأسقف:</strong> شبكات LED دائرية ومربعة، سقف ألياف ضوئية (Starlight)، إنارة مخفية.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-icon icon-blue">🎛️</div>
+                <h3>4. الأبواب والملحقات</h3>
+                <p>تجهيزات الحركة والتحكم:</p>
+                <ul>
+                    <li><strong>الأبواب:</strong> فتح مركزي (Center) أو جانبي تلسكوبي (Telescopic).</li>
+                    <li><strong>لوحة الأزرار (COP):</strong> أزرار برايل مضيئة، شاشات TFT ديجيتال.</li>
+                    <li><strong>الدرابزين:</strong> دائري أو مسطح ذهبي/أسود.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">
+            <span>نظام تخزين وتحديث الحالة اللحظية بواسطة Zustand Architecture</span>
+            <span>الصفحة 3 من 6</span>
+        </div>
+    </div>
+
+    <!-- SLIDE 4: PRICING, BOM & RFQ SYSTEM -->
+    <div class="slide">
+        <div class="header">
+            <div class="logo-badge">
+                <div class="logo-icon">B</div>
+                <div class="logo-text">BAYERN SYSTEMS</div>
+            </div>
+            <div class="slide-tag">التسعير وعروض الأسعار</div>
+        </div>
+
+        <div class="title-section">
+            <h1>3. محرك التسعير الفوري وإصدار العروض (RFQ & BOM Engine)</h1>
+            <p>تحويل قرارات التصميم الجمالية إلى بيانات مالية وهندسية دقيقة لتقديم عروض أسعار لحظية للعملاء.</p>
+        </div>
+
+        <div class="grid-3">
+            <div class="card card-highlight">
+                <div class="card-icon icon-emerald">💰</div>
+                <h3>التسعير الديناميكي المباشر</h3>
+                <ul>
+                    <li>تحديث فوري لسعر الباقة (<span style="color:#38bdf8; font-weight:bold;">$19,000+ USD</span>) في أعلى الشاشة عند اختيار أي خامة أو إكسسوار.</li>
+                    <li>حساب فروق تكلفة الخامات الفاخرة (مثل رخام الكرارا الطبيعي مقابل الباركيه).</li>
+                    <li>تضمين تكاليف الأجهزة الإلكترونية والشاشات الرقمية والأبواب الأوتوماتيكية.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-icon icon-blue">📄</div>
+                <h3>تصدير تقرير مواصفات PDF</h3>
+                <ul>
+                    <li>توليد ملف <strong>PDF احترافي</strong> بضغطة زر واحدة عبر <code>jsPDF</code>.</li>
+                    <li>يحتوي على جدول حصر الكميات والمواصفات (Bill of Materials).</li>
+                    <li>كود تسلسلي خاص بكل تصميم لتسهيل المتابعة الفنية وطلبات الشراء.</li>
+                    <li>ترويسة رسمية جاهزة للتقديم للجهات والمكاتب الاستشارية.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-icon icon-purple">✉️</div>
+                <h3>طلب عرض السعر الرقمي (RFQ)</h3>
+                <ul>
+                    <li>نموذج إرسال سريع لبيانات العميل (الاسم، الشركة، رقم الهاتف، موقع المشروع).</li>
+                    <li>تضمين التكوين المختار بالكامل مع تفاصيل الأبواب والمقاسات.</li>
+                    <li>ربط مباشر مع منصات المراسلة والبريد الإلكتروني التجاري (Resend Integration).</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">
+            <span>نظام متكامل لتسريع دورة المبيعات الهندسية من المعاينة إلى الإغلاق</span>
+            <span>الصفحة 4 من 6</span>
+        </div>
+    </div>
+
+    <!-- SLIDE 5: ROADMAP & RECOMMENDED FEATURES -->
+    <div class="slide">
+        <div class="header">
+            <div class="logo-badge">
+                <div class="logo-icon">B</div>
+                <div class="logo-text">BAYERN SYSTEMS</div>
+            </div>
+            <div class="slide-tag">خارطة الطريق والترقيات المقترحة</div>
+        </div>
+
+        <div class="title-section">
+            <h1>4. الميزات والتوسعات الموصى بإضافتها (Next Roadmap)</h1>
+            <p>المرحلة القادمة لنقل النظام إلى مستوى الأنظمة العالمية لشركات المصاعد الكبرى (Otis, Schindler, KONE).</p>
+        </div>
+
+        <div class="grid-3">
+            <div class="card">
+                <div class="card-icon icon-amber">🌐</div>
+                <h3>1. التعريب واللغات (i18n & RTL)</h3>
+                <ul>
+                    <li>واجهة عربية كاملة مع دعم الـ RTL المتناسق.</li>
+                    <li>تعريب القواميس والمصطلحات الفنية والهندسية للمصاعد في الوطن العربي والخليج.</li>
+                    <li>دعم العملات المحلية (ريال سعودي، درهم، دولار، دينار).</li>
+                </ul>
+            </div>
+
+            <div class="card card-highlight">
+                <div class="card-icon icon-blue">📐</div>
+                <h3>2. التحكم الدقيق بالأبعاد والحمولة</h3>
+                <ul>
+                    <li><strong>Parametric Sizing:</strong> إدخال أبعاد البئر والكابينة بالملم (عرض، عمق، ارتفاع).</li>
+                    <li><strong>حساب السعة والحمولة:</strong> تحديد سعة الأشخاص (6, 8, 13 شخص) والوزن (450kg - 1000kg).</li>
+                    <li><strong>المقياس البشري:</strong> إضافة مجسم ثلاثي الأبعاد لإظهار الحجم الحقيقي.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-icon icon-purple">🔗</div>
+                <h3>3. الحفظ، المشاركة والواقع الافتراضي</h3>
+                <ul>
+                    <li><strong>رابط مشاركة فريد (Share Link):</strong> حفظ التكوين في الرابط لإرساله للعميل عبر الواتساب.</li>
+                    <li><strong>التقاط صور 4K Render:</strong> تحميل لقطات فائقة الدقة لتضمينها في العروض المعمارية.</li>
+                    <li><strong>الواقع المعزز (AR / WebXR):</strong> عرض الكابينة في الموقع الفعلي عبر كاميرا الهاتف.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">
+            <span>تطويرات ترفع كفاءة التسويق الهندسي وتجربة العميل بنسبة تفوق 300%</span>
+            <span>الصفحة 5 من 6</span>
+        </div>
+    </div>
+
+    <!-- SLIDE 6: SUMMARY & CONCLUSION -->
+    <div class="slide">
+        <div class="header">
+            <div class="logo-badge">
+                <div class="logo-icon">B</div>
+                <div class="logo-text">BAYERN SYSTEMS</div>
+            </div>
+            <div class="slide-tag">الخلاصة والقيمة المضافة</div>
+        </div>
+
+        <div class="title-section">
+            <h1>5. القيمة المضافة للنظام ومستقبل المنصة</h1>
+            <p>كيف يعيد نظام Bayern Systems 3D Configurator تعريف مبيعات وتصميم المصاعد الحديثة.</p>
+        </div>
+
+        <div class="grid-2">
+            <div class="card card-highlight">
+                <div class="card-icon icon-emerald">🏆</div>
+                <h3>فوائد النظام للأعمال والمبيعات (Business Impact)</h3>
+                <ul>
+                    <li><strong>تقليص وقت التفاوض:</strong> إلغاء الحاجة لأسابيع من رسومات الأوتوكاد والريندر التقليدي عبر المعاينة الفورية.</li>
+                    <li><strong>ثقة العميل المطلقة:</strong> رؤية كل خامة بلونها وانعكاسها الحقيقي قبل توقيع العقد.</li>
+                    <li><strong>أتمتة عروض الأسعار:</strong> إصدار فوري لملفات الـ PDF وقوائم الـ BOM مما يقلل الأخطاء البشرية.</li>
+                    <li><strong>أداة تسويقية رائدة:</strong> واجهة رقمية متطورة تمنح الشركة ميزة تنافسية كبرى أمام العملاء والمطورين العقاريين.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-icon icon-blue">🚀</div>
+                <h3>جاهزية النظام للتكامل والإنتاج (Ready for Scale)</h3>
+                <ul>
+                    <li><strong>بنية تحتية مرنة:</strong> إمكانية ربطه مع أنظمة الـ CRM وقواعد بيانات المخزون والمصانع.</li>
+                    <li><strong>دعم مجسمات Revit & 3ds Max:</strong> ميزة مدمجة لاستيراد ملفات الـ GLB / GLTF الهندسية الجاهزة.</li>
+                    <li><strong>متوافق مع جميع الأجهزة:</strong> يعمل بسلاسة على الحواسيب، الأجهزة اللوحية (Tablets)، وشاشات العرض التفاعلية.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">
+            <span>© 2026 Bayern Systems - جميع الحقوق محفوظة | تم إعداد التقرير بواسطة المساعد الذكي</span>
+            <span>الصفحة 6 من 6</span>
+        </div>
+    </div>
+
+</body>
+</html>
