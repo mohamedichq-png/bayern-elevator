@@ -20,7 +20,7 @@ export type MaterialOption = {
   basePrice?: number;
 };
 
-export type ViewMode = 'cab' | 'hall' | 'shaft';
+export type ViewMode = 'cab' | 'cab_front' | 'hall' | 'shaft';
 export type DoorState = 'closed' | 'open';
 export type DoorOpeningType = 'center' | 'left' | 'right';
 export type COPType = 'standard' | 'premium' | 'glass' | 'slimline' | 'full_height';

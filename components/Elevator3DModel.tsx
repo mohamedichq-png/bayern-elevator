@@ -639,36 +639,96 @@ function CabInterior() {
         <ElevatorMaterial mat={floorMaterial} />
       </mesh>
 
-      {/* Ceiling */}
+      {/* Ceiling Surface */}
       <mesh position={[0, 1.45, 0]} rotation={[Math.PI / 2, 0, 0]}>
         <planeGeometry args={[2.9, 2.9]} />
         <ElevatorMaterial mat={ceilingMaterial} />
       </mesh>
 
+      {/* Ceiling Recessed Spotlights (4 LED Fixtures) */}
+      {[
+        [-0.8, 1.44, -0.8],
+        [0.8, 1.44, -0.8],
+        [-0.8, 1.44, 0.8],
+        [0.8, 1.44, 0.8]
+      ].map((spotPos, i) => (
+        <group key={i} position={spotPos as [number, number, number]}>
+          <mesh rotation={[Math.PI / 2, 0, 0]}>
+            <ringGeometry args={[0.06, 0.09, 24]} />
+            <meshStandardMaterial color="#cbd5e1" metalness={0.9} roughness={0.1} />
+          </mesh>
+          <mesh rotation={[Math.PI / 2, 0, 0]}>
+            <circleGeometry args={[0.06, 24]} />
+            <meshBasicMaterial color="#fffbeb" />
+          </mesh>
+        </group>
+      ))}
+
       {/* Starlight Fiberoptic Dots */}
       {(ceilingMaterial.id === 'ceil-4' || lighting === 'starlight') && <StarlightFiberCeiling />}
 
-      {/* Back Wall Panel */}
-      <mesh position={[0, 0, -1.45]}>
-        <planeGeometry args={[2.9, 2.9]} />
-        <ElevatorMaterial mat={backWallMaterial} />
-      </mesh>
+      {/* Back Wall - 3 Modular Architectural Panels */}
+      {[-0.95, 0, 0.95].map((xOffset, i) => (
+        <mesh key={`bw-${i}`} position={[xOffset, 0, -1.44]}>
+          <boxGeometry args={[0.92, 2.65, 0.02]} />
+          <ElevatorMaterial mat={backWallMaterial} />
+        </mesh>
+      ))}
 
-      {/* Left Wall Panel */}
-      <mesh position={[-1.45, 0, 0]} rotation={[0, Math.PI / 2, 0]}>
-        <planeGeometry args={[2.9, 2.9]} />
-        <ElevatorMaterial mat={sideWallMaterial} />
-      </mesh>
+      {/* Left Wall - 3 Modular Architectural Panels */}
+      {[-0.95, 0, 0.95].map((zOffset, i) => (
+        <mesh key={`lw-${i}`} position={[-1.44, 0, zOffset]} rotation={[0, Math.PI / 2, 0]}>
+          <boxGeometry args={[0.92, 2.65, 0.02]} />
+          <ElevatorMaterial mat={sideWallMaterial} />
+        </mesh>
+      ))}
 
-      {/* Right Wall Panel */}
-      <mesh position={[1.45, 0, 0]} rotation={[0, -Math.PI / 2, 0]}>
-        <planeGeometry args={[2.9, 2.9]} />
-        <ElevatorMaterial mat={sideWallMaterial} />
-      </mesh>
+      {/* Right Wall - 3 Modular Architectural Panels */}
+      {[-0.95, 0, 0.95].map((zOffset, i) => (
+        <mesh key={`rw-${i}`} position={[1.44, 0, zOffset]} rotation={[0, -Math.PI / 2, 0]}>
+          <boxGeometry args={[0.92, 2.65, 0.02]} />
+          <ElevatorMaterial mat={sideWallMaterial} />
+        </mesh>
+      ))}
 
-      {/* Architectural Reveals / Trims */}
-      {[-1.44, 1.44].map((x, i) => (
-        <mesh key={i} position={[x, 0, -1.44]}>
+      {/* Bottom Perimeter Kickplate / Baseboard (MAD Elevator Style) */}
+      <group position={[0, -1.39, 0]}>
+        {/* Rear Kickplate */}
+        <mesh position={[0, 0, -1.43]}>
+          <boxGeometry args={[2.9, 0.12, 0.03]} />
+          <ElevatorMaterial mat={revealFinish} />
+        </mesh>
+        {/* Left Kickplate */}
+        <mesh position={[-1.43, 0, 0]} rotation={[0, Math.PI / 2, 0]}>
+          <boxGeometry args={[2.9, 0.12, 0.03]} />
+          <ElevatorMaterial mat={revealFinish} />
+        </mesh>
+        {/* Right Kickplate */}
+        <mesh position={[1.43, 0, 0]} rotation={[0, -Math.PI / 2, 0]}>
+          <boxGeometry args={[2.9, 0.12, 0.03]} />
+          <ElevatorMaterial mat={revealFinish} />
+        </mesh>
+      </group>
+
+      {/* Top Crown Cornice Trim */}
+      <group position={[0, 1.39, 0]}>
+        <mesh position={[0, 0, -1.43]}>
+          <boxGeometry args={[2.9, 0.1, 0.03]} />
+          <ElevatorMaterial mat={revealFinish} />
+        </mesh>
+        <mesh position={[-1.43, 0, 0]} rotation={[0, Math.PI / 2, 0]}>
+          <boxGeometry args={[2.9, 0.1, 0.03]} />
+          <ElevatorMaterial mat={revealFinish} />
+        </mesh>
+        <mesh position={[1.43, 0, 0]} rotation={[0, -Math.PI / 2, 0]}>
+          <boxGeometry args={[2.9, 0.1, 0.03]} />
+          <ElevatorMaterial mat={revealFinish} />
+        </mesh>
+      </group>
+
+      {/* Corner Vertical Reveal Columns */}
+      {[-1.43, 1.43].map((x, i) => (
+        <mesh key={`cor-${i}`} position={[x, 0, -1.43]}>
           <boxGeometry args={[0.04, 2.9, 0.04]} />
           <ElevatorMaterial mat={revealFinish} />
         </mesh>
@@ -848,8 +908,10 @@ export default function Elevator3DModel() {
       cameraControlsRef.current.setLookAt(0, 0, 4.5, 0, 0, 1.5, true);
     } else if (viewMode === 'shaft') {
       cameraControlsRef.current.setLookAt(3.5, 2.2, 3.5, 0, 0, 0, true);
+    } else if (viewMode === 'cab_front') {
+      cameraControlsRef.current.setLookAt(0, 0, -0.2, 0, 0, 1.45, true);
     } else {
-      cameraControlsRef.current.setLookAt(0, 0, 0.3, 0, 0, -1.4, true);
+      cameraControlsRef.current.setLookAt(0, 0, 0.3, 0, 0, -1.45, true);
     }
   }, [viewMode]);
 
@@ -892,7 +954,7 @@ export default function Elevator3DModel() {
           {viewMode === 'hall' && <HallLandingView />}
 
           {/* 3D Interactive Hotspot Pins */}
-          {viewMode === 'cab' && (
+          {(viewMode === 'cab' || viewMode === 'cab_front') && (
             <>
               <InteractiveHotspot position={[1.4, 0.2, 0.4]} label="Operating Panel (COP)" labelAr="لوحة التحكم والأزرار" stepId={6} icon={KeySquare} />
               <InteractiveHotspot position={[0, 1.35, 0]} label="Ceiling & Starlight" labelAr="السقف وإضاءة النجوم" stepId={5} icon={Sparkles} />
@@ -916,17 +978,28 @@ export default function Elevator3DModel() {
 
       {/* Floating 3D Navigation Controls Bar */}
       <div className="absolute top-5 right-5 z-30 flex items-center gap-2 bg-black/60 backdrop-blur-xl p-2 rounded-2xl border border-white/10 shadow-2xl">
-        {/* View Mode Switcher: Cab / Shaft / Hall */}
+        {/* View Mode Switcher: Cab Back / Cab Front / Shaft / Hall */}
         <div className="flex bg-white/10 p-1 rounded-xl gap-1">
           <button
             onClick={() => { elevatorAudio.playButtonClick(); setViewMode('cab'); }}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
               viewMode === 'cab' ? 'bg-bayern-red text-white shadow-md' : 'text-gray-300 hover:text-white'
             }`}
-            title="Inside Cab 360"
+            title="Inside Cab (Back View)"
           >
             <Box className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">داخل الكابينة</span>
+            <span className="hidden sm:inline">الكابينة (الخلف)</span>
+          </button>
+
+          <button
+            onClick={() => { elevatorAudio.playButtonClick(); setViewMode('cab_front'); }}
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
+              viewMode === 'cab_front' ? 'bg-bayern-red text-white shadow-md' : 'text-gray-300 hover:text-white'
+            }`}
+            title="Front View (COP & Doors)"
+          >
+            <KeySquare className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">اللوحة والأبواب</span>
           </button>
 
           <button
